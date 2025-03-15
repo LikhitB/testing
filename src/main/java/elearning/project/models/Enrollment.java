@@ -1,6 +1,9 @@
 package elearning.project.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
@@ -20,11 +23,11 @@ public class Enrollment {
 
     @ManyToOne
     @JoinColumn(name = "studentId")
-    @JsonIgnore // Prevent recursion issue
+    @JsonBackReference(value="student-enroll") // Prevent recursion issue
     private User student;
 
     @ManyToOne
     @JoinColumn(name = "courseId")
-    @JsonIgnore // Prevent recursion issue
+    @JsonBackReference(value="course-enroll") // Prevent recursion issue
     private Course course;
 }
