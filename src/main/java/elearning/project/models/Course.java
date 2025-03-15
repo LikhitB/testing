@@ -26,14 +26,18 @@ public class Course {
 
     @ManyToOne
     @JoinColumn(name = "instructorID")
+<<<<<<< HEAD
     @JsonBackReference(value="instructor-course")
+=======
+    @JsonBackReference(value="instructor-course") // Prevents infinite recursion, but allows data in User
+>>>>>>> 42ca43c05f4e5c196d49f231a4e20f7e3f64fcb3
     private User instructor;
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference(value="course-enroll") // Prevent recursion issue
+    @JsonManagedReference(value="course-enroll")
     private List<Enrollment> enrollments;
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore // Prevent recursion issue
+    @JsonIgnore
     private List<Assessment> assessments;
 }
