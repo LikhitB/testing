@@ -36,11 +36,12 @@ public class User {
     private List<Enrollment> enrollments;
 
     @OneToMany(mappedBy = "instructor", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore // Avoid infinite recursion
+    @JsonManagedReference(value="instructor-course") // Ensures courses are included in User JSON
     private Set<Course> courses;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore // Avoid infinite recursion
+    // @JsonManagedReference(value="user-submission")
+	@JsonIgnore
     private List<Submission> submissions;
 
     public enum Role {
