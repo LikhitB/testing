@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
@@ -30,7 +32,7 @@ public class User {
     private String password;
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true) 
-    @JsonIgnore // Avoid infinite recursion
+    @JsonManagedReference(value="student-enroll") // Avoid infinite recursion
     private List<Enrollment> enrollments;
 
     @OneToMany(mappedBy = "instructor", cascade = CascadeType.ALL, orphanRemoval = true)
