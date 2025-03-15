@@ -29,8 +29,8 @@ public class CourseService {
 
     public Course saveCourse(Course course) {
     	System.out.println("hello bro in creation");
-    	System.out.println(course.getInstructorId().getUserID()+"id bro");
-    	if(userRepository.findById(course.getInstructorId().getUserID()).isEmpty()) {
+    	System.out.println(course.getInstructor().getUserID()+"id bro");
+    	if(userRepository.findById(course.getInstructor().getUserID()).isEmpty()) {
     		System.out.println("error bro");
     		throw new ResourceIdNotFoundException("Sorry the user/instructor not found!");
     	}
