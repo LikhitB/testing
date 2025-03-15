@@ -5,7 +5,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
@@ -27,7 +26,7 @@ public class Course {
 
     @ManyToOne
     @JoinColumn(name = "instructorID")
-    @JsonIgnore // Prevent recursion issue
+    @JsonBackReference(value="instructor-course")
     private User instructor;
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)

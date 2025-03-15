@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
@@ -33,15 +34,17 @@ public class User {
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true) 
     @JsonManagedReference(value="student-enroll") // Avoid infinite recursion
+//    @JsonIgnore
     private List<Enrollment> enrollments;
-
     @OneToMany(mappedBy = "instructor", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore // Avoid infinite recursion
-    private Set<Course> courses;
+    @JsonManagedReference(value="instructor-course") // Avoid infinite recursion
+//    JsonIgnore
+    private List<Course> courses;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore // Avoid infinite recursion
     private List<Submission> submissions;
+    
 
     public enum Role {
         STUDENT, INSTRUCTOR

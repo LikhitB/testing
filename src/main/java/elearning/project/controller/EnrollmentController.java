@@ -29,7 +29,7 @@ public class EnrollmentController {
         return new ResponseEntity<>(enrollment.get(),HttpStatus.ACCEPTED);
     }
     @PreAuthorize("hasRole('STUDENT')")
-    @PostMapping(consumes = "application/json;charset=UTF-8")
+    @PostMapping 
     public Enrollment createEnrollment(@RequestBody Enrollment enrollment) {
         return enrollmentService.saveEnrollment(enrollment);
     }
