@@ -1,0 +1,47 @@
+package elearning.project.models;
+
+import java.util.List;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long userID;
+
+    private String username;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    @Column(unique = true)
+    private String email;
+
+    private String password;
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true) 
+    @JsonIgnore // Avoid infinite recursion
+    private List<Enrollment> enrollments;
+
+    @OneToMany(mappedBy = "instructor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore // Avoid infinite recursion
+    private Set<Course> courses;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore // Avoid infinite recursion
+    private List<Submission> submissions;
+
+    public enum Role {
+        STUDENT, INSTRUCTOR
+    }
+}
