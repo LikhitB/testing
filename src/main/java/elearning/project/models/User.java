@@ -37,14 +37,8 @@ public class User {
 //    @JsonIgnore
     private List<Enrollment> enrollments;
     @OneToMany(mappedBy = "instructor", cascade = CascadeType.ALL, orphanRemoval = true)
-<<<<<<< HEAD
-    @JsonManagedReference(value="instructor-course") // Avoid infinite recursion
-//    JsonIgnore
-    private List<Course> courses;
-=======
     @JsonManagedReference(value="instructor-course") // Ensures courses are included in User JSON
     private Set<Course> courses;
->>>>>>> 42ca43c05f4e5c196d49f231a4e20f7e3f64fcb3
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     // @JsonManagedReference(value="user-submission")
